@@ -1,12 +1,39 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mon site</title>
-</head>
-<body>
-  <h1>Bonjour !</h1>
-  <p>Mon premier site sur GitHub Pages.</p>
-</body>
-</html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Émilien Dilly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@600&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<header><div class="wrap"><a class="nom" href="index.html">Émilien Dilly</a>
+<nav><a href="index.html" aria-current="page">Accueil</a><a href="cv.html">CV</a></nav></div></header>
+<main class="wrap">
+<h1>Bonjour, je suis Émilien Dilly.</h1>
+<p class="lead">[Votre métier ou statut] — [une phrase sur ce que vous faites et ce qui vous intéresse].</p>
+<p class="liens"><a href="cv.html">Voir mon CV</a><a href="https://github.com/emiliendilly">GitHub</a><a href="mailto:votre@email.fr">Contact</a></p>
+
+<h2>À propos</h2>
+<p>[Deux ou trois phrases : votre parcours, vos domaines d'expertise, ce que vous cherchez.]</p>
+<ul class="comp"><li>Compétence 1</li><li>Compétence 2</li><li>Compétence 3</li><li>Compétence 4</li></ul>
+
+<h2>Activité récente</h2>
+<ul class="liste">
+<li>[Projet, publication ou mission en cours]<small>[Une ligne de contexte]</small></li>
+<li>[Autre activité]<small>[Une ligne de contexte]</small></li>
+</ul>
+
+<h2>Derniers dépôts GitHub</h2>
+<ul class="liste" id="depots"><li>Chargement…</li></ul>
+</main>
+<footer class="wrap">© Émilien Dilly</footer>
+<script>
+fetch("https://api.github.com/users/emiliendilly/repos?sort=pushed&per_page=5")
+ .then(r=>r.ok?r.json():Promise.reject())
+ .then(d=>{const ul=document.getElementById("depots");
+  ul.innerHTML=d.length?"":"<li>Aucun dépôt public pour le moment.</li>";
+  d.forEach(r=>{const li=document.createElement("li"),a=document.createElement("a"),s=document.createElement("small");
+   a.href=r.html_url;a.textContent=r.name;
+   s.textContent=(r.description||"Sans description")+" — mis à jour le "+new Date(r.pushed_at).toLocaleDateString("fr-FR");
+   li.append(a,s);ul.append(li);});})
+ .catch(()=>{document.getElementById("depots").innerHTML="<li>Impossible de charger les dépôts.</li>"});
+</script>
+</body></html>
